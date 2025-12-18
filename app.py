@@ -61,7 +61,7 @@ if menu == "Item Master" and role == "Store":
     item = st.text_input("Item Name")
 
     folio_list = st.multiselect(
-        "Ledger Folio",
+        "Ledger",
         options=["Printing ledger",
 "IT consumable",
 "Stationary",
@@ -186,5 +186,6 @@ elif menu == "Consumable Summary" and role == "Store":
         st.success("Summary Updated")
 
     st.dataframe(summary)
+
 
 
