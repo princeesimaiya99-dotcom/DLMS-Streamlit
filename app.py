@@ -54,29 +54,28 @@ menu = st.sidebar.selectbox(
 )
 
 # ---------------- ITEM MASTER ----------------
+# ---------------- ITEM MASTER ----------------
 if menu == "Item Master" and role == "Store":
     st.header("Item Master")
+
     item = st.text_input("Item Name")
-    folio = st.text_input("Ledger Folio")
+
+    folio_list = st.multiselect(
+        "Ledger Folio",
+        options=["IT", "abc", "bgf"]
+    )
+    folio = ", ".join(folio_list)
+
     itype = st.selectbox("Type", ["Permanent", "Consumable"])
 
     if st.button("Add Item"):
-        exists = items[
-            (items["Item"].str.lower() == item.lower()) &
-            (items["Folio"].str.lower() == folio.lower())
-        ]
-        if not exists.empty:
-            st.error("Item already exists in the same ledger folio")
-        else:
-            items = pd.concat([
-                items,
-                pd.DataFrame([[item, folio, itype]],
-                columns=["Item", "Folio", "Type"])
-            ], ignore_index=True)
-            save(items, FILES["items"])
-            st.success("Item Added")
+        items = pd.concat([items, pd.DataFrame([[item, folio, itype]],
+                        columns=["Item", "Folio", "Type"])])
+        save(items, FILES["items"])
+        st.success("Item Added")
 
     st.dataframe(items)
+
 
 # ---------------- DEPARTMENT MASTER ----------------
 elif menu == "Department Master" and role == "Store":
@@ -175,3 +174,4 @@ elif menu == "Consumable Summary" and role == "Store":
         st.success("Summary Updated")
 
     st.dataframe(summary)
+
