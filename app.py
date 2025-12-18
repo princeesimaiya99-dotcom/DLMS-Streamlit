@@ -82,7 +82,9 @@ if menu == "Item Master" and role == "Store":
     ledger_selected = ", ".join(ledger_list)
 
     # New single-select dropdown for Folio
-    folio_options = ["A1", "B1", "C1", "D1", "E1"]  # example options
+    # Generate folio options from 1 to 100
+ folio_options = [str(i) for i in range(1, 101)]
+ # example options
     folio = st.selectbox("Folio", options=folio_options)
 
     itype = st.selectbox("Type", ["Permanent", "Consumable"])
@@ -194,6 +196,7 @@ elif menu == "Consumable Summary" and role == "Store":
         st.success("Summary Updated")
 
     st.dataframe(summary)
+
 
 
 
