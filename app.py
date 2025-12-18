@@ -60,33 +60,41 @@ if menu == "Item Master" and role == "Store":
 
     item = st.text_input("Item Name")
 
-    folio_list = st.multiselect(
+    # Multi-select for Ledger (keep as is)
+    ledger_list = st.multiselect(
         "Ledger",
-        options=["Printing ledger",
-"IT consumable",
-"Stationary",
-"Sports",
-"ARS",
-"Naval store consumable",
-"I&M consumables pmt",
-"Clothing",
-"E.R.T.", 
-"IT pmt",
-"Messstrap",
-"Amenity pmt",
-"Naval store pmt"]
+        options=[
+            "Printing ledger",
+            "IT consumable",
+            "Stationary",
+            "Sports",
+            "ARS",
+            "Naval store consumable",
+            "I&M consumables pmt",
+            "Clothing",
+            "E.R.T.", 
+            "IT pmt",
+            "Messstrap",
+            "Amenity pmt",
+            "Naval store pmt"
+        ]
     )
-    folio = ", ".join(folio_list)
+    ledger_selected = ", ".join(ledger_list)
+
+    # New single-select dropdown for Folio
+    folio_options = ["A1", "B1", "C1", "D1", "E1"]  # example options
+    folio = st.selectbox("Folio", options=folio_options)
 
     itype = st.selectbox("Type", ["Permanent", "Consumable"])
 
     if st.button("Add Item"):
-        items = pd.concat([items, pd.DataFrame([[item, folio, itype]],
-                        columns=["Item", "Folio", "Type"])])
+        items = pd.concat([items, pd.DataFrame([[item, ledger_selected, folio, itype]],
+                        columns=["Item", "Ledger", "Folio", "Type"])])
         save(items, FILES["items"])
         st.success("Item Added")
 
     st.dataframe(items)
+
 
 
 # ---------------- DEPARTMENT MASTER ----------------
@@ -186,6 +194,7 @@ elif menu == "Consumable Summary" and role == "Store":
         st.success("Summary Updated")
 
     st.dataframe(summary)
+
 
 
 
