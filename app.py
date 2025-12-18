@@ -62,7 +62,19 @@ if menu == "Item Master" and role == "Store":
 
     folio_list = st.multiselect(
         "Ledger Folio",
-        options=["IT", "abc", "bgf"]
+        options=["Printing ledger",
+"IT consumable",
+"Stationary",
+"Sports",
+"ARS",
+"Naval store consumable",
+"I&M consumables pmt",
+"Clothing",
+"E.R.T.", 
+"IT pmt",
+"Messstrap",
+"Amenity pmt",
+"Naval store pmt"]
     )
     folio = ", ".join(folio_list)
 
@@ -174,4 +186,5 @@ elif menu == "Consumable Summary" and role == "Store":
         st.success("Summary Updated")
 
     st.dataframe(summary)
+
 
