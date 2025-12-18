@@ -54,8 +54,6 @@ menu = st.sidebar.selectbox(
 )
 
 # ---------------- ITEM MASTER ----------------
-# ---------------- ITEM MASTER ----------------
-# ---------------- ITEM MASTER ----------------
 if menu == "Item Master" and role == "Store":
     st.header("Item Master")
 
@@ -73,7 +71,7 @@ if menu == "Item Master" and role == "Store":
             "Naval store consumable",
             "I&M consumables pmt",
             "Clothing",
-            "E.R.T.", 
+            "E.R.T.",
             "IT pmt",
             "Messstrap",
             "Amenity pmt",
@@ -89,17 +87,13 @@ if menu == "Item Master" and role == "Store":
     itype = st.selectbox("Type", ["Permanent", "Consumable"])
 
     if st.button("Add Item"):
-    items = pd.concat([items, pd.DataFrame([[item, ledger_selected, folio, itype]],
-                    columns=["Item", "Ledger", "Folio", "Type"])])
-    save(items, FILES["items"])
-    st.success("Item Added")
+        items = pd.concat([items, pd.DataFrame([[item, ledger_selected, folio, itype]],
+                        columns=["Item", "Ledger", "Folio", "Type"])], ignore_index=True)
+        save(items, FILES["items"])
+        st.success("Item Added")
 
-# Display table with Ledger included
-st.dataframe(items[["Item", "Ledger", "Folio", "Type"]])
-
-
-
-
+    # Display table with Ledger included
+    st.dataframe(items[["Item", "Ledger", "Folio", "Type"]])
 
 # ---------------- DEPARTMENT MASTER ----------------
 elif menu == "Department Master" and role == "Store":
@@ -130,7 +124,7 @@ elif menu == "S-156 Issue" and role == "Store":
         s156 = pd.concat([
             s156,
             pd.DataFrame([[item, dept, qty, "Pending"]],
-            columns=["Item", "Department", "Qty", "Status"])
+                         columns=["Item", "Department", "Qty", "Status"])
         ], ignore_index=True)
         save(s156, FILES["s156"])
         st.success("S-156 Raised")
@@ -155,13 +149,13 @@ elif menu == "Approvals":
                 ledger = pd.concat([
                     ledger,
                     pd.DataFrame([[row["Item"], row["Department"], row["Qty"]]],
-                    columns=["Item", "Department", "Qty"])
+                                 columns=["Item", "Department", "Qty"])
                 ], ignore_index=True)
 
                 pll = pd.concat([
                     pll,
                     pd.DataFrame([[row["Department"], row["Item"], row["Qty"]]],
-                    columns=["Department", "Item", "Qty"])
+                                 columns=["Department", "Item", "Qty"])
                 ], ignore_index=True)
 
     save(s156, FILES["s156"])
@@ -192,16 +186,9 @@ elif menu == "Consumable Summary" and role == "Store":
         summary = pd.concat([
             summary,
             pd.DataFrame([[item, dept, qty]],
-            columns=["Item", "Department", "Qty"])
+                         columns=["Item", "Department", "Qty"])
         ], ignore_index=True)
         save(summary, FILES["summary"])
         st.success("Summary Updated")
 
     st.dataframe(summary)
-
-
-
-
-
-
-
