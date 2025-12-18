@@ -89,12 +89,14 @@ if menu == "Item Master" and role == "Store":
     itype = st.selectbox("Type", ["Permanent", "Consumable"])
 
     if st.button("Add Item"):
-        items = pd.concat([items, pd.DataFrame([[item, ledger_selected, folio, itype]],
-                        columns=["Item", "Ledger", "Folio", "Type"])])
-        save(items, FILES["items"])
-        st.success("Item Added")
+    items = pd.concat([items, pd.DataFrame([[item, ledger_selected, folio, itype]],
+                    columns=["Item", "Ledger", "Folio", "Type"])])
+    save(items, FILES["items"])
+    st.success("Item Added")
 
-    st.dataframe(items)
+# Display table with Ledger included
+st.dataframe(items[["Item", "Ledger", "Folio", "Type"]])
+
 
 
 
@@ -196,6 +198,7 @@ elif menu == "Consumable Summary" and role == "Store":
         st.success("Summary Updated")
 
     st.dataframe(summary)
+
 
 
 
