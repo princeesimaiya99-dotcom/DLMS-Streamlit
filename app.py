@@ -55,12 +55,13 @@ menu = st.sidebar.selectbox(
 
 # ---------------- ITEM MASTER ----------------
 # ---------------- ITEM MASTER ----------------
+# ---------------- ITEM MASTER ----------------
 if menu == "Item Master" and role == "Store":
     st.header("Item Master")
 
     item = st.text_input("Item Name")
 
-    # Multi-select for Ledger (keep as is)
+    # Multi-select for Ledger
     ledger_list = st.multiselect(
         "Ledger",
         options=[
@@ -81,10 +82,8 @@ if menu == "Item Master" and role == "Store":
     )
     ledger_selected = ", ".join(ledger_list)
 
-    # New single-select dropdown for Folio
-    # Generate folio options from 1 to 100
- folio_options = [str(i) for i in range(1, 101)]
- # example options
+    # Single-select dropdown for Folio
+    folio_options = [str(i) for i in range(1, 101)]  # 1 to 100
     folio = st.selectbox("Folio", options=folio_options)
 
     itype = st.selectbox("Type", ["Permanent", "Consumable"])
@@ -96,6 +95,7 @@ if menu == "Item Master" and role == "Store":
         st.success("Item Added")
 
     st.dataframe(items)
+
 
 
 
@@ -196,6 +196,7 @@ elif menu == "Consumable Summary" and role == "Store":
         st.success("Summary Updated")
 
     st.dataframe(summary)
+
 
 
 
